@@ -64,8 +64,9 @@ class TagsTable extends Table
     }
 
 
-        /** Custom methods **/
-
+    /* ############################# Custom methods ############################# **/
+    
+    // add new tags if they don't already exist in this table
     public function updateTags($tags) {
         if ( !empty($tags)){
            // debug($tags);
