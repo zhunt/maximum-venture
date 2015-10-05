@@ -96,7 +96,7 @@ class CategoriesTable extends Table
         return $rules;
     }
 
-    /* ############################# Custom methods ############################# **/
+    /* ############################# Custom methods ############################# */
     
     // add new categories if they don't already exist in this table
     public function updateCategories($Categories) {

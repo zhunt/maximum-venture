@@ -47,10 +47,7 @@ class ArticlesController extends AppController
             $tagIds = $this->Articles->Tags->updateTags($data['tags']);
             debug($tagIds); //exit;
             $categoryIds = $this->Articles->Categories->updateCategories($data['categories']);
-           debug($categoryIds);
-
-
-//
+           //debug($categoryIds);
 
             
             //debug( Time::createFromTimeStamp( strtotime($data['date']) ) ); // '2015-09-04T19:23:06'
