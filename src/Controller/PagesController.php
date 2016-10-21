@@ -18,6 +18,8 @@ use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 
+use Cake\Event\Event;
+
 /**
  * Static content controller
  *
@@ -27,6 +29,11 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+       $this->Auth->allow();
+    } 
 
     /**
      * Displays a view
@@ -61,5 +68,9 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
+    }
+
+    public function admin_index() {
+        echo 'here 1';
     }
 }

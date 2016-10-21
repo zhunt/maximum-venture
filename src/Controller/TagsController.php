@@ -1,9 +1,7 @@
 <?php
-namespace App\Controller\Admin;
+namespace App\Controller;
 
 use App\Controller\AppController;
-
-use Cake\Cache\Cache;
 
 /**
  * Tags Controller
@@ -57,11 +55,8 @@ class TagsController extends AppController
                 $this->Flash->error(__('The tag could not be saved. Please, try again.'));
             }
         }
-        //$articles = $this->Tags->Articles->find('list', ['limit' => 200]);
-
-        $companies = $this->Tags->Companies->find('list', ['limit' => 500] );
-
-        $this->set(compact('tag', 'articles', 'companies'));
+        $articles = $this->Tags->Articles->find('list', ['limit' => 200]);
+        $this->set(compact('tag', 'articles'));
         $this->set('_serialize', ['tag']);
     }
 
@@ -81,17 +76,13 @@ class TagsController extends AppController
             $tag = $this->Tags->patchEntity($tag, $this->request->data);
             if ($this->Tags->save($tag)) {
                 $this->Flash->success(__('The tag has been saved.'));
-                Cache::clear(false); // could be set so only clears tags
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The tag could not be saved. Please, try again.'));
             }
         }
-        //$articles = $this->Tags->Articles->find('list', ['limit' => 200]);
-
-        $companies = $this->Tags->Companies->find('list', ['limit' => 500] );
-
-        $this->set(compact('tag', 'articles', 'companies'));
+        $articles = $this->Tags->Articles->find('list', ['limit' => 200]);
+        $this->set(compact('tag', 'articles'));
         $this->set('_serialize', ['tag']);
     }
 

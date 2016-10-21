@@ -1,7 +1,7 @@
 <?php
 // src/Controller/UsersController.php
 
-namespace App\Controller\Admin;
+namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
@@ -64,7 +64,7 @@ class UsersController extends AppController
 
     public function logout()
     {
-        return $this->redirect('/landings/'); // $this->Auth->logout()
+        return $this->redirect('/' ); // $this->Auth->logout()
     }
     //--
 
