@@ -1,6 +1,6 @@
-<div class="actions columns large-2 medium-3">
-    <h3><?= __('Actions') ?></h3>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $tag->id],
@@ -11,15 +11,19 @@
         <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add']) ?></li>
     </ul>
-</div>
-<div class="tags form large-10 medium-9 columns">
+</nav>
+<div class="tags form large-9 medium-8 columns content">
     <?= $this->Form->create($tag) ?>
     <fieldset>
         <legend><?= __('Edit Tag') ?></legend>
         <?php
-            echo $this->Form->input('name');
+            echo $this->Form->input('title');
             echo $this->Form->input('slug');
-            echo $this->Form->input('articles._ids', ['options' => $articles]);
+            echo $this->Form->input('company_id', ['options' => $companies, 'empty' => '(none)' ] );
+            echo $this->Form->input('seo_title');
+            echo $this->Form->input('meta_desc');
+            echo $this->Form->input('description');
+            //echo $this->Form->input('articles._ids', ['options' => $articles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
