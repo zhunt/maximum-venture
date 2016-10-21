@@ -4,9 +4,9 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Category Entity.
+ * ImageUpload Entity.
  */
-class Category extends Entity
+class ImageUpload extends Entity
 {
 
     /**

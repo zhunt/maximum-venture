@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Category;
+use App\Model\Entity\ContentBlock;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Categories Model
+ * ContentBlocks Model
  */
-class CategoriesTable extends Table
+class ContentBlocksTable extends Table
 {
 
     /**
@@ -21,17 +21,10 @@ class CategoriesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('categories');
+        $this->table('content_blocks');
         $this->displayField('name');
         $this->primaryKey('id');
-        $this->hasMany('Articles', [
-            'foreignKey' => 'category_id'
-        ]);
-
-        $this->addBehavior('Muffin/Slug.Slug', [
-            // Optionally define your custom options here (see Configuration)
-          ]);
-
+        $this->addBehavior('Timestamp');
     }
 
     /**
@@ -45,8 +38,12 @@ class CategoriesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('name', 'create', 'colour')
-            ->notEmpty('name', 'colour');
+            ->requirePresence('name', 'create')
+            ->notEmpty('name')
+            ->requirePresence('content', 'create')
+            ->notEmpty('content')
+            ->add('flag_html', 'valid', ['rule' => 'boolean'])
+            ->allowEmpty('flag_html');
 
         return $validator;
     }

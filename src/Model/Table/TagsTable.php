@@ -26,16 +26,29 @@ class TagsTable extends Table
         parent::initialize($config);
 
         $this->table('tags');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->displayField('title');
+        $this->primaryKey('id');      
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Muffin/Slug.Slug');
 
         $this->belongsToMany('Articles', [
             'foreignKey' => 'tag_id',
             'targetForeignKey' => 'article_id',
             'joinTable' => 'articles_tags'
         ]);
+/*
+        $this->hasOne('Companies', [
+            'foreignKey' => 'id',
+            //'joinType' => 'INNER'
+        ]);  
+*/
+        $this->belongsTo('Companies', [
+            'foreignKey' => 'company_id',
+            //'joinType' => 'INNER'
+        ]);
+
+
     }
 
     /**
@@ -51,46 +64,25 @@ class TagsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('name', 'create')
-            ->notEmpty('name')
-            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->requirePresence('slug', 'create')
-            ->notEmpty('slug')
-            ->add('slug', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->allowEmpty('title')
+            ->add('title', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         return $validator;
     }
 
-
-    /* ############################# Custom methods ############################# **/
-    
-    // add new tags if they don't already exist in this table
-    public function updateTags($tags) {
-        if ( !empty($tags)){
-           // debug($tags);
-            $tagIds = [];
-            foreach ($tags as $slug => $value) {
-                $result = $this->findBySlug($slug);
-                if ($result->isEmpty() ) {
-                    $entity = $this->newEntity( ['name' => $value, 'slug' => $slug ] , ['validate' => false]);
-                    $result = $this->save($entity);
-                    $tagIds[] = $result->id;
-                }
-                else {
-                    $result = $result->first();
-                    $entity = $this->newEntity( [ 'name' => $value, 'slug' => $slug ] , ['validate' => false]);
-                    $entity->id = $result->id;
-                    $result = $this->save($entity);
-                    $tagIds[] = $result->id;                    
-
-                }
-            }
-            return $tagIds;
-        } 
-        else {
-            return null;
-        }
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['title']));
+        return $rules;
     }
+
+
+
 }

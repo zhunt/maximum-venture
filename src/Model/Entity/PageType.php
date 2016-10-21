@@ -4,9 +4,9 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Category Entity.
+ * PageType Entity.
  */
-class Category extends Entity
+class PageType extends Entity
 {
 
     /**
@@ -15,7 +15,7 @@ class Category extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
+        'name' => true,
+        'landings' => true,
     ];
 }

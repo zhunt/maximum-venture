@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Category;
+use App\Model\Entity\Chain;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Categories Model
+ * Chains Model
  */
-class CategoriesTable extends Table
+class ChainsTable extends Table
 {
 
     /**
@@ -21,17 +21,12 @@ class CategoriesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('categories');
+        $this->table('chains');
         $this->displayField('name');
         $this->primaryKey('id');
-        $this->hasMany('Articles', [
-            'foreignKey' => 'category_id'
+        $this->hasMany('Schools', [
+            'foreignKey' => 'chain_id'
         ]);
-
-        $this->addBehavior('Muffin/Slug.Slug', [
-            // Optionally define your custom options here (see Configuration)
-          ]);
-
     }
 
     /**
@@ -45,8 +40,8 @@ class CategoriesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('name', 'create', 'colour')
-            ->notEmpty('name', 'colour');
+            ->requirePresence('name', 'canonical_link', 'create')
+            ->notEmpty('name', 'canonical_link');
 
         return $validator;
     }

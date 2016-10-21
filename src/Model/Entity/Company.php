@@ -4,15 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Tag Entity.
+ * Company Entity.
  *
  * @property int $id
- * @property string $title
+ * @property int $name
+ * @property string $description
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\Article[] $articles
+ * @property \App\Model\Entity\Tag[] $tags
  */
-class Tag extends Entity
+class Company extends Entity
 {
 
     /**

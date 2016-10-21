@@ -4,9 +4,9 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Category Entity.
+ * ContentBlock Entity.
  */
-class Category extends Entity
+class ContentBlock extends Entity
 {
 
     /**
@@ -15,7 +15,8 @@ class Category extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
+        'name' => true,
+        'content' => true,
+        'flag_html' => true,
     ];
 }

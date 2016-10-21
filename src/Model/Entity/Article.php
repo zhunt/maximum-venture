@@ -7,18 +7,25 @@ use Cake\ORM\Entity;
  * Article Entity.
  *
  * @property int $id
- * @property int $user_id
- * @property \App\Model\Entity\User $user
  * @property string $name
  * @property string $slug
+ * @property string $seo_title
+ * @property string $seo_desc
  * @property string $body
+ * @property bool $flag_html
  * @property int $category_id
  * @property \App\Model\Entity\Category $category
- * @property int $published
+ * @property bool $flag_featured
+ * @property int $feature_image_id
+ * @property \App\Model\Entity\ImageUpload $image_upload
+ * @property string $feature_text
+ * @property int $tag_count
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\Tag[] $tags
  */
+
+use Cake\Collection\Collection;
+
 class Article extends Entity
 {
 
@@ -33,6 +40,31 @@ class Article extends Entity
      */
     protected $_accessible = [
         '*' => true,
+        'tag_string' => true,
         'id' => false,
+        'flag_published' => true,
+        //'confirm_captcha' => true
     ];
+
+    protected function _getTagString()
+    {
+        if (isset($this->_properties['tag_string'])) {
+            return $this->_properties['tag_string'];
+        }
+        if (empty($this->tags)) {
+            return '';
+        }
+        $tags = new Collection($this->tags);
+        $str = $tags->reduce(function ($string, $tag) {
+            return $string . $tag->title . ', ';
+        }, '');
+        return trim($str, ', ');
+    }
+
+
 }
+
+
+
+
+
