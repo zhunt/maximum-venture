@@ -48,7 +48,7 @@ use Cake\Database\Type;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\ErrorHandler;
 use Cake\Log\Log;
-use Cake\Network\Email\Email;
+use Cake\Mailer\Email;
 use Cake\Network\Request;
 use Cake\Routing\DispatcherFactory;
 use Cake\Utility\Inflector;
@@ -102,7 +102,7 @@ ini_set('intl.default_locale', 'en_US');
 /**
  * Register application error and exception handlers.
  */
-$isCli = php_sapi_name() === 'cli';
+$isCli = PHP_SAPI === 'cli';
 if ($isCli) {
     (new ConsoleErrorHandler(Configure::read('Error')))->register();
 } else {
@@ -182,6 +182,12 @@ Request::addDetector('tablet', function ($request) {
 
 Plugin::load('Migrations');
 
+
+
+//Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);
+
+
+
 // Only try to load DebugKit in development mode
 // Debug Kit should not be installed on a production system
 if (Configure::read('debug')) {
@@ -199,4 +205,39 @@ DispatcherFactory::add('ControllerFactory');
  * Enable default locale format parsing.
  * This is needed for matching the auto-localized string output of Time() class when parsing dates.
  */
+Type::build('date')->useLocaleParser();
 Type::build('datetime')->useLocaleParser();
+
+// turn off 
+//Configure::write('Users.config', ['users']);
+//Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true, 'default_role' => 'user']);
+
+Plugin::load('BootstrapUI');
+
+Plugin::load('Muffin/Slug');
+//Plugin::load('Muffin/Tags');
+
+
+
+/* App specific */
+Configure::write('siteUrlFull', 'http://www.maximumventure.ca');
+Configure::write('websiteName', 'MaximumVenture');
+Configure::write('slogan1', 'Canadian Business News');
+
+Configure::write('disqusUrl', 'maximumventure');
+Configure::write('websiteTwitter', 'maximumventure');
+Configure::write('websiteFacebook', 'Maximumventure');
+
+Configure::write('adminEmail', 'admin@maximumventure.ca');
+Configure::write('adminEmailPw', 'Firefox1mvadmin!');
+Configure::write('adminTo', 'zhunt@yyztech.ca');
+
+
+Configure::write( 'googleSiteKey',   '6LeqIBoTAAAAAKRkTNgt0eKaBevFKeDjw9Dgqyb4');
+Configure::write( 'googleSecretKey', '6LeqIBoTAAAAAMDx8sEPYA7e_aO1-KHXHS8nP3Pt');
+
+
+ Cache::disable();
+
+
+

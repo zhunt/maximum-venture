@@ -62,7 +62,7 @@ return [
      *   You should treat it as extremely sensitive data.
      */
     'Security' => [
-        'salt' => '__SALT__',
+        'salt' => 'cc3fcfff576fe9e347cc387528d5cfe1028b89f60b156b03273801350b71be71',
     ],
 
     /**
@@ -215,9 +215,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'nonstandard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'my_app',
+            'username' => 'root',
+            'password' => '',
+            'database' => 'maximumventure',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
